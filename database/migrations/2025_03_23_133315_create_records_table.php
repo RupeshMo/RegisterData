@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('records', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->timestamps();
+            $table->id(); // Primary key
+            $table->string('name'); // Name of the record
+            $table->string('address'); // Address of the record
+            $table->string('profilePhoto')->nullable();
+            $table->timestamps(); // Created_at and updated_at timestamps
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('records');
+        Schema::dropIfExists('records'); // Drop the table if it exists
     }
 };

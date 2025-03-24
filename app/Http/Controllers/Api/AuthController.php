@@ -6,79 +6,81 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function showAuthForm()
+    // Show the registration form (this could return a Blade view)
+    public function showRegisterForm()
     {
-        // Return the auth form view
-        return view('auth');
+        return view('auth.register');
     }
 
+    // Handle the registration logic
     public function register(Request $request)
     {
-        // Validate the incoming request
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Create the user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        // Create a token for the new user
+        // Create a Sanctum token for the user
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Return the view with success message and token information
-        return view('auth', [
+        return view('auth.register', [
             'success' => 'Registration successful. You can now log in.',
             'access_token' => $token,
             'token_type' => 'Bearer'
         ]);
     }
 
+    // Show the login form
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    // Handle the login logic
     public function login(Request $request)
     {
-        // Validate the incoming request
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Find the user by email
-        $user = User::where('email', $request->email)->first();
+        // Authenticate the user
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Check if the user exists and if the password matches
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+            // Redirect to /registerdata after successful login
+            return redirect()->route('registerdata')->with([
+                'success' => 'Login successful. Welcome back!',
+                'access_token' => $token,
+                'token_type' => 'Bearer'
             ]);
         }
 
-        // Generate the token
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        // Return the view with success message and token information
-        return view('auth', [
-            'success' => 'Login successful. Welcome back!',
-            'access_token' => $token,
-            'token_type' => 'Bearer'
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
         ]);
     }
 
+    // Handle logout logic
     public function logout(Request $request)
     {
-        // Revoke the user's current access token
+        // Revoke the user's current token
         $request->user()->currentAccessToken()->delete();
 
-        // Return the view with success message
-        return view('auth', [
-            'success' => 'Logged out successfully',
+        return redirect()->route('login')->with([
+            'success' => 'Logged out successfully.',
         ]);
     }
 }

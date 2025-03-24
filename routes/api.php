@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Route;
 // Display the registration, login, and logout form
 
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+// Route::post('register', [AuthController::class, 'register']);
+// Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
+// Route::middleware('auth:sanctum')->group(function () {
+//     Route::post('/logout', [AuthController::class, 'logout']);
     // We'll add our task routes here later
-});
+// });
