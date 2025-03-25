@@ -23,44 +23,58 @@
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Upload Record</h2>
-        <form id="uploadForm" method="POST" action="{{ route('submit.record') }}" enctype="multipart/form-data">
-            @csrf
+<div class="border border-gray-300 rounded-lg w-[500px] mx-auto mt-5 p-6 shadow-lg bg-white">
+    <h2 class="text-2xl font-semibold text-center mb-4">Welcome, {{$user->name}} Upload Record</h2>
+    <form id="uploadForm" method="POST" action="{{ route('submit.record') }}" enctype="multipart/form-data">
+        @csrf
 
-            <!-- Name and Address Input -->
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
+        <!-- Name Input -->
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-gray-700">Name:</label>
+            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2" id="name" name="name" required>
+        </div>
 
-            <div class="form-group">
-                <label for="address">Address:</label>
-                <input type="text" class="form-control" id="address" name="address" required>
-            </div>
+        <!-- Address Input -->
+        <div class="mb-4">
+            <label for="address" class="block text-sm font-medium text-gray-700">Address:</label>
+            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2" id="address" name="address" required>
+        </div>
 
-            <!-- Multiple File Upload -->
-            <div class="form-group">
-                <label for="files">Upload Files:</label>
-                <input type="file" class="form-control" id="files" name="files[]" multiple>
-                <small class="form-text text-muted">Upload multiple files (images, documents, etc.).</small>
-            </div>
+        <!-- Multiple File Upload -->
+        <div class="mb-4">
+            <label for="files" class="block text-sm font-medium text-gray-700">Upload Files:</label>
+            <input type="file" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 p-2" id="files" name="files[]" multiple>
+            <small class="text-gray-600">Upload multiple files (images, documents, etc.).</small>
+        </div>
 
-            <!-- Trigger Modal for Capture Photo -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#photoModal">
-                Capture Photo
-            </button>
+        <div class="mb-4">
+        <label for="address" class="block text-sm font-medium text-gray-700">Address:</label>
+        <select id="states" name="state">
+            @forEach($states as $key => $state)
+            <option value="{{$key}}">{{$state['name']}}</option>
+            @endforEach
+        </select>
+        </div>
 
-            <!-- Hidden Photo Input (for the captured photo) -->
-            <input type="hidden" id="profilePhoto" name="profilePhoto">
+        <!-- Trigger Modal for Capture Photo -->
+        <button type="button" class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition duration-200 mb-4" data-toggle="modal" data-target="#photoModal">
+            Capture Photo
+        </button>
 
-            <!-- Display Captured Image -->
-            <h4 class="mt-4">Captured Photo:</h4>
-            <img id="capturedImage" src="" alt="Captured Image" style="display: none;">
+        <!-- Hidden Photo Input (for the captured photo) -->
+        <input type="hidden" id="profilePhoto" name="profilePhoto">
 
-            <button type="submit" class="btn btn-primary mt-3">Submit Record</button>
-        </form>
-    </div>
+        <!-- Display Captured Image -->
+        <h4 class="mt-4 text-lg font-medium">Captured Photo:</h4>
+        <img id="capturedImage" src="" alt="Captured Image" class="mt-2 rounded-md shadow-md hidden">
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 rounded-md hover:bg-green-700 transition duration-200 mt-3">
+            Submit Record
+        </button>
+    </form>
+</div>
+
 
     <!-- Modal for Live Camera Capture -->
     <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">

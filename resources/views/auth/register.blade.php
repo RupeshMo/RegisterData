@@ -1,51 +1,111 @@
-<!-- resources/views/auth/register.blade.php -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 </head>
+<body class="bg-gray-50">
 
-<form action="{{ route('register') }}" method="POST" class="form">
-    @csrf
-    <p class="title">Register</p>
-    <p class="message">Sign up now and get full access to our platform.</p>
+    <div class="flex items-center justify-center min-h-screen bg-gray-50">
+        <div class="w-full max-w-lg p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+            <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Create an Account</h1>
 
-    <!-- Name Field -->
-    <label for="name">
-        <input type="text" name="name" id="name" required class="input" />
-        <span>Name</span>
-    </label>
+            <!-- Success and Error Messages -->
+            @if(session('success'))
+                <div class="mb-4 text-green-600 text-center">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-    <!-- Email Field -->
-    <label for="email">
-        <input type="email" name="email" id="email" required class="input" />
-        <span>Email</span>
-    </label>
+            @if(session('error'))
+                <div class="mb-4 text-red-600 text-center">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-    <!-- Password Field -->
-    <label for="password">
-        <input type="password" name="password" id="password" required class="input" />
-        <span>Password</span>
-    </label>
+            <!-- Register Form -->
+            <form id="register-form" method="POST" action="{{ route('register') }}" class="space-y-6">
+                @csrf
 
-    <!-- Confirm Password Field -->
-    <label for="password_confirmation">
-        <input type="password" name="password_confirmation" id="password_confirmation" required class="input" />
-        <span>Confirm Password</span>
-    </label>
+                <!-- Name Input -->
+                <div class="mb-6">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
+                    />
+                    @error('name')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-    <!-- Submit Button -->
-    <button type="submit" class="submit">Register</button>
+                <!-- Email Input -->
+                <div class="mb-6">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
+                    />
+                    @error('email')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-    <!-- Login Link -->
-    <p class="signin">Already have an account? <a href="{{ route('login') }}">Sign In</a></p>
-</form>
+                <!-- Password Input -->
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
+                    />
+                    @error('password')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-@if(session('success'))
-    <p class="success-message">{{ session('success') }}</p>
-@endif
+                <!-- Confirm Password Input -->
+                <div class="mb-6">
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="password_confirmation" 
+                        name="password_confirmation" 
+                        required 
+                        class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
+                    />
+                    @error('password_confirmation')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-@if(session('access_token'))
-    <script>
-        var accessToken = "{{ session('access_token') }}";
-        console.log('Access Token: ', accessToken);
-    </script>
-@endif
+                <!-- Submit Button -->
+                <button 
+                    type="submit" 
+                    class="w-full py-3 px-6 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 transition duration-300"
+                >
+                    Register
+                </button>
+            </form>
+
+            <!-- Login Link -->
+            <p class="mt-6 text-center text-sm text-gray-500">
+                Already have an account? <a href="{{ url('/login') }}" class="text-indigo-600 hover:text-indigo-700">Login here</a>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
