@@ -1,0 +1,106 @@
+/* Main Form Styling */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  margin: 0 auto; /* Center the form */
+}
+
+.title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  text-align: center;
+}
+
+.message, .signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+  text-align: center;
+}
+
+.signin a {
+  color: royalblue;
+  text-decoration: none;
+}
+
+.signin a:hover {
+  text-decoration: underline;
+}
+
+.form label {
+  position: relative;
+  width: 100%;
+}
+
+/* Label inside the input with proper positioning */
+.form label .input {
+  width: 100%;
+  padding: 12px 10px;
+  outline: none;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: #fafafa; /* Light background color for input */
+  transition: border-color 0.3s ease;
+}
+
+/* Style for label placed inside input */
+.form label .input + span {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+/* When input is focused or filled, move label above input */
+.form label .input:focus + span,
+.form label .input:valid + span {
+  top: -10px;
+  font-size: 0.75em;
+  font-weight: 600;
+  color: royalblue; /* Change color to royalblue on focus */
+}
+
+/* Success message color for validation */
+.form label .input:valid + span {
+  color: green; /* Green for valid fields */
+}
+
+.submit {
+  border: none;
+  outline: none;
+  background-color: royalblue;
+  padding: 12px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+  background-color: rgb(56, 90, 194);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
