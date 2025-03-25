@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\RecordController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.home');
 });
 
 // Registration Routes

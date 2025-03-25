@@ -128,3 +128,187 @@ p {
       padding: 12px;
   }
 }
+
+.container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Main container for page layout */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Rectangle container with two sections */
+.rectangle-container {
+  display: flex;
+  width: 90%;
+  max-width: 1100px;
+  height: 420px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.rectangle-container:hover {
+  transform: scale(1.02);
+}
+
+/* Left section for content */
+.left-section {
+  width: 50%;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.left-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.left-section p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  width: 140px;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.button.login {
+  background-color: #0056b3;
+}
+
+.button.login:hover {
+  background-color: #00408d;
+  transform: translateY(-2px);
+}
+
+.button.signup {
+  background-color: #28a745;
+}
+
+.button.signup:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+/* Right section with abstract pattern */
+.right-section {
+  width: 50%;
+  position: relative;
+}
+
+/* Abstract Patterns */
+.pattern1 {
+  --_c: 75%, var(--c3) 52.72deg, #0000 0;
+  --_g1: conic-gradient(from -116.36deg at 25% var(--_c));
+  --_g2: conic-gradient(from 63.43deg at 75% var(--_c));
+  background: var(--_g1), var(--_g1) calc(3 * var(--s)) calc(var(--s) / 2),
+              var(--_g2), var(--_g2) calc(3 * var(--s)) calc(var(--s) / 2),
+              conic-gradient(
+                  var(--c2) 63.43deg,
+                  var(--c1) 0 116.36deg,
+                  var(--c2) 0 180deg,
+                  var(--c1) 0 243.43deg,
+                  var(--c2) 0 296.15deg,
+                  var(--c1) 0
+              );
+  background-size: calc(2 * var(--s)) var(--s);
+}
+/* From Uiverse.io by csemszepp */ 
+.container {
+  width: 100%;
+  height: 100%;
+  --s: 82px;
+  --c1: #b2b2b2;
+  --c2: #ffffff;
+  --c3: #d9d9d9;
+
+  --_g: var(--c3) 0 120deg, #0000 0;
+  background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+    conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+    conic-gradient(
+      from 60deg at calc(200% / 3),
+      var(--c3) 60deg,
+      var(--c2) 0 120deg,
+      #0000 0
+    ),
+    conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+    linear-gradient(
+      90deg,
+      var(--c1) calc(100% / 6),
+      var(--c2) 0 50%,
+      var(--c1) 0 calc(500% / 6),
+      var(--c2) 0
+    );
+  background-size: calc(1.732 * var(--s)) var(--s);
+}
+
+.right-section .container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  border-radius: 0 15px 15px 0;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .rectangle-container {
+      flex-direction: column;
+      height: auto;
+  }
+
+  .left-section,
+  .right-section {
+      width: 100%;
+      padding: 20px;
+  }
+
+  .buttons-container {
+      flex-direction: column;
+      gap: 15px;
+  }
+
+  .button {
+      width: 100%;
+      font-size: 16px;
+  }
+}
+
