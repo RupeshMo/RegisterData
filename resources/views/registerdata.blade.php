@@ -49,10 +49,14 @@
 
         <div class="mb-4">
         <label for="address" class="block text-sm font-medium text-gray-700">Address:</label>
-        <select id="states" name="state">
+        <select id="states" name="state" onchange=setDistrict()>
+            <option>Select State</option>
             @forEach($states as $key => $state)
             <option value="{{$key}}">{{$state['name']}}</option>
             @endforEach
+        </select>
+        <select id="disctricts" name="disctricts>
+            <option value="{{$key}}">Select districts</option>
         </select>
         </div>
 
@@ -110,6 +114,27 @@
 
     <!-- JavaScript for Camera and Capture -->
     <script>
+        // for disctricts 
+        const setDistrict = () => {
+            const select_element = document.querySelector('#states');
+            var sites = {!! json_encode($states, JSON_HEX_TAG) !!};
+            const disctricts = sites[select_element.value].districts;
+            console.log(disctricts)
+            const disctrictsContainer = document.querySelector('#disctricts');
+            disctricts.forEach((item) => {
+                console.log(item)
+                const option = document.createElement('option');
+                option.value = item;
+                option.textContent = item;
+                disctrictsContainer.appendChild(option)
+
+            })
+        }
+
+
+
+
+
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
         const captureButton = document.getElementById('captureButton');
